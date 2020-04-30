@@ -16,16 +16,27 @@
     $year = (isset($_GET["year"]) && !empty($_GET["year"])) ? $_GET["year"] : "";
     $gender = (isset($_GET["gender"]) && !empty($_GET["gender"])) ? $_GET["gender"] : "";
 
-    /*$user_object = array(
- 	    "firstName" => $firstname,
- 	    "lastName" => $lastname,
- 	    "email" => $email,
-        "password" => $password,
-        "day" => $day,
-        "month" => $month,
-        "year" => $year,
-        "gender" => $gender,
-    );*/
+    $host = "localhost";
+    $username = "root";
+    $password = "admin";
+    $db_name = "db_name";
+
+    $con = new mysqli($host, $username, $password, $db_name);
+    if ($con->connect_error) {
+        die("error: " . $con->connect_error);
+    } else {
+        echo "connected successfully";
+    }
+
+    // table structure by columns -> id, firstname, lastname, password, day, month, year, gender
+    $sql_insert = "INSERT INTO users VALUES (null, ".$firstname.", ".$lastname.", ".$email.", ".$password.", ".$day.", ".$month.", ".$year.", ".$gender.")";
+    $result = $con->query($sql_insert);
+    if (!$result) {
+        echo "error:".nl2br('\n');
+    } else {
+        echo "Your data has been added successfully";
+    }
+    $con->close();
 ?>
 
 <table class="table">
