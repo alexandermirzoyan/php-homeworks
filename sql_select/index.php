@@ -15,9 +15,16 @@ $sql_insert = "SELECT * FROM all_cases"; //all_cases is table's name
 $result = $con->query($sql_insert);
 if ($result->num_rows) {
     echo "error:".nl2br('\n');
+    echo "<table>";
     while ($rows = $result->fetch_assoc()) {
         var_dump($rows);
+        echo "<tr>";
+        foreach ($rows as $key => $value) {
+            echo "<td>" .$value. "</td>";
+        }
+        echo "</tr>";
     }
+    echo "</table>";
 } else {
     echo "Your data has been added successfully";
     die();
